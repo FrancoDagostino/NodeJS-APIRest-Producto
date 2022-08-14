@@ -1,12 +1,18 @@
 const {request,response} = require('express');
+
 const Producto = require('../models/producto');
 
 
 
-const getProducto = (req = request, res = response) =>{
+const getProducto = async (req = request, res = response) =>{
+
+    const {limite} = req.query;
+    const producto = await Producto.find({estado:true})
+                    .limit(Number(limite));
+
 
     res.json({
-        msg:'prueba get'
+        producto
     });
 
 }
